@@ -9,3 +9,11 @@ You've been asked to refactor the function `deterministicPartitionKey` in [`dpk.
 You will be graded on the exhaustiveness and quality of your unit tests, the depth of your refactor, and the level of insight into your thought process provided by the written explanation.
 
 ## Your Explanation Here
+
+Made code more concise by removing conditional check for a truthy candidate value, and stringifying the event and partition key within the event conditional. This eliminates the number of crypto method invocations to allow for a shorter and more readable function.
+
+Lines 7 to 17 were grouped to determine the value of the candidate variable, regardless of whether the event had a partitionKey or not. This grouping of logic makes the code more ingestible for future iterations.
+
+Line 16's return statement returns out "0" to indicate that there was no event provided.
+
+I also noticed that partitionKeys with a length < 256 were not being hashed, so I moved the crypto method invocations down to line 19 in order to hash any truthy candidate.
